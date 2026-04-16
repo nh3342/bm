@@ -20,13 +20,16 @@ def get_base64_of_bin_file(bin_file):
     return ""
 
 
-# --- CUSTOM CSS (Fonts, Background, Styling) ---
+# --- CUSTOM CSS (Dark Theme, Fonts, Strict Image Cropping) ---
 def local_css():
-    # Get base64 string of the logo for the blurred background
     bg_base64 = get_base64_of_bin_file("asset/logo.png")
 
-    # Conditional CSS for the background if the logo exists
+    # 1. DARK THEME BACKGROUND (Deep Charcoal/Forest)
     bg_css = f"""
+        .stApp {{
+            background-color: #161816; /* Deep earthy charcoal */
+            color: #E4E6DF; /* Soft off-white for text */
+        }}
         .stApp::before {{
             content: "";
             position: fixed;
@@ -34,67 +37,83 @@ def local_css():
             background-image: url("data:image/png;base64,{bg_base64}");
             background-size: cover;
             background-position: center;
-            filter: blur(12px);
-            opacity: 0.08; /* Very subtle so text remains readable */
+            background-repeat: no-repeat;
+            filter: blur(20px);
+            opacity: 0.04; /* Extremely low opacity for dark theme */
             z-index: -1;
         }}
-    """ if bg_base64 else ""
+    """ if bg_base64 else ".stApp { background-color: #161816; color: #E4E6DF; }"
 
     st.markdown(f"""
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500&display=swap');
 
-        /* Inject the blurred background */
         {bg_css}
 
-        .stApp {{
-            background-color: #FEFCF8; /* Fallback base color */
-            color: #2F3630;
-        }}
-
+        /* Global Typography for Dark Theme */
         h1, h2, h3, h4, h5, h6 {{
             font-family: 'Playfair Display', serif !important;
-            color: #2F3630;
+            color: #F2F4EC !important; 
             letter-spacing: 0.5px;
         }}
 
-        p, span, div, li {{
+        p, span, div, li, label {{
             font-family: 'Montserrat', sans-serif;
+            color: #E4E6DF;
         }}
 
-        /* Subtle Grid Styling & Expander */
-        div[data-testid="stExpander"] {{
-            background-color: rgba(255, 255, 255, 0.8);
-            border-radius: 8px;
-            border: 1px solid #e0dcd3;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        /* 2. SUBTLE DARK GRID LINES & CONTAINERS */
+        div[data-testid="stVerticalBlockBorderWrapper"] {{
+            border: 1px solid #2C332D !important; /* Subtle dark green/grey border */
+            border-radius: 12px !important;
+            background-color: rgba(26, 30, 27, 0.75) !important; /* Translucent dark container */
+            padding: 15px !important;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2) !important;
         }}
 
-        /* STANDARDIZE IMAGE SIZES inside the bordered containers */
-        div[data-testid="stVerticalBlockBorderWrapper"] img {{
-            height: 250px !important;
+        /* 3. STRICT IMAGE CROPPING TO FIXED BOX */
+        /* Targets the image container itself to prevent layout shifts */
+        div[data-testid="stImage"] {{
             width: 100% !important;
-            object-fit: cover !important; /* Prevents stretching, crops cleanly */
-            border-radius: 6px;
+            height: 250px !important; 
+            overflow: hidden !important;
+            border-radius: 8px !important;
+            margin-bottom: 15px !important;
+        }}
+        /* Forces the image to fill the container perfectly without stretching */
+        div[data-testid="stImage"] img {{
+            width: 100% !important;
+            height: 100% !important;
+            object-fit: cover !important; 
+        }}
+
+        /* Expander Styling for Dark Theme */
+        div[data-testid="stExpander"] {{
+            background-color: rgba(35, 41, 37, 0.9) !important;
+            border-radius: 8px;
+            border: 1px solid #2C332D;
+        }}
+        div[data-testid="stExpander"] p {{
+            color: #B5BDB6 !important;
         }}
 
         /* Floating Action Button (FAB) */
         .stButton > button {{
             border-radius: 30px;
-            background-color: #728777;
-            color: white;
+            background-color: #8DA393; /* Lighter sage green for pop on dark theme */
+            color: #161816 !important; /* Dark text on button */
             border: none;
             transition: 0.3s;
             padding: 12px 28px;
-            font-weight: 500;
+            font-weight: 600;
             font-family: 'Montserrat', sans-serif;
-            box-shadow: 0 4px 12px rgba(114, 135, 119, 0.3);
+            box-shadow: 0 4px 12px rgba(141, 163, 147, 0.2);
         }}
         .stButton > button:hover {{
-            background-color: #5d7062;
-            color: white;
+            background-color: #A3BCA9;
+            color: #161816 !important;
             transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(114, 135, 119, 0.4);
+            box-shadow: 0 6px 16px rgba(141, 163, 147, 0.3);
         }}
 
         .floating-button-container {{
@@ -102,6 +121,12 @@ def local_css():
             bottom: 40px;
             right: 40px;
             z-index: 999;
+        }}
+
+        /* Form styling for dark theme admin panel */
+        div[data-baseweb="input"] > div, div[data-baseweb="textarea"] > div {{
+            background-color: #232925 !important;
+            border-color: #38423B !important;
         }}
     </style>
     """, unsafe_allow_html=True)
@@ -139,7 +164,6 @@ def inquiry_form():
 
 # --- UI COMPONENTS ---
 def render_hero():
-    # Hero Section with Side-by-Side Layout
     with st.container():
         col_logo, col_desc = st.columns([1, 2], gap="large")
 
@@ -154,11 +178,12 @@ def render_hero():
             st.markdown(
                 "<h1 style='text-align: left; font-size: 4rem; margin-bottom: 0; padding-top: 20px;'>Disha Herbals</h1>",
                 unsafe_allow_html=True)
+            # Adjusted hex colors for the dark theme text
             st.markdown(
-                "<h2 style='text-align: left; color: #728777; font-style: italic; margin-top: 0px; font-size: 1.6rem;'>As Gentle as a Mother's Touch</h2>",
+                "<h2 style='text-align: left; color: #8DA393; font-style: italic; margin-top: 0px; font-size: 1.6rem;'>As Gentle as a Mother's Touch</h2>",
                 unsafe_allow_html=True)
             st.markdown("""
-            <p style='text-align: left; font-size: 1.1rem; line-height: 1.7; color: #555; margin-top: 15px; max-width: 90%;'>
+            <p style='text-align: left; font-size: 1.1rem; line-height: 1.7; color: #B5BDB6; margin-top: 15px; max-width: 90%;'>
             At Disha Herbals, we believe skincare should be as pure, safe, and nurturing as nature intended. 
             Handcrafted with love, our authentic handmade soaps strip away harsh chemicals, leaving your skin 
             with nothing but herbal goodness.
@@ -171,10 +196,9 @@ def render_storefront(products):
     featured = [p for p in products if p.get("is_featured")]
     if featured:
         st.markdown(
-            "<br><h2 style='text-align: center; color: #728777; font-size: 2.5rem;'>✨ Our Signature Blends</h2><br>",
+            "<br><h2 style='text-align: center; color: #8DA393; font-size: 2.5rem;'>✨ Our Signature Blends</h2><br>",
             unsafe_allow_html=True)
         for p in featured:
-            # Wrap featured product in a bordered grid container
             with st.container(border=True):
                 col1, col2 = st.columns([1, 2], gap="large")
                 with col1:
@@ -185,7 +209,7 @@ def render_storefront(products):
                     st.markdown(f"**🎯 Best for:** {p['usecase']}")
                     st.write(p['description'])
                     st.markdown(
-                        f"<span style='color: #728777; font-weight: 500;'>🌿 Ingredients:</span> *{p['ingredients']}*",
+                        f"<span style='color: #8DA393; font-weight: 500;'>🌿 Ingredients:</span> *{p['ingredients']}*",
                         unsafe_allow_html=True)
 
     st.markdown("<br><h2 style='text-align: center; font-size: 2.2rem;'>Our Handcrafted Collection</h2><br>",
@@ -195,7 +219,6 @@ def render_storefront(products):
     cols = st.columns(3, gap="medium")
     for index, p in enumerate(standard):
         with cols[index % 3]:
-            # Wrap standard products in a bordered grid container
             with st.container(border=True):
                 if os.path.exists(p['image_path']):
                     st.image(p['image_path'], use_container_width=True)

@@ -6,7 +6,7 @@
     "ingredients": "Pure Manjistha Powder, Coconut Oil, Vitamin E Oil, Rose Water",
     "description": "Our signature Ayurvedic powerhouse. Handcrafted with authentic Manjistha (Indian Madder), this bar naturally purifies, brightens your complexion, and gently fades blemishes for a flawless, natural glow.",
     "is_featured": true,
-    "image_path": "assets/images/manjistha_featured.png"
+    "image_path": "asset/images/manjistha_featured.png"
   },
   {
     "id": "soap_assortment",
@@ -15,7 +15,7 @@
     "ingredients": "A customized selection of our purest herbal blends.",
     "description": "Experience the full spectrum of nature's care. Choose a beautifully packaged assortment of our handcrafted soaps, featuring our intricate floral and classic designs.",
     "is_featured": true,
-    "image_path": "assets/images/assortment_display.png"
+    "image_path": "asset/images/assortment_display.png"
   },
   {
     "id": "soap_chandan",
@@ -24,7 +24,7 @@
     "ingredients": "Chandan powder, Rose water, Vitamin E oil, Badam oil, Coconut oil, Fragrance",
     "description": "Moisturises and soothes skin while acting as an anti-aging natural cleanser. Promotes a natural glow.",
     "is_featured": false,
-    "image_path": "assets/images/chandan.png"
+    "image_path": "asset/images/chandan.png"
   },
   {
     "id": "soap_aloevera",
@@ -33,7 +33,7 @@
     "ingredients": "Aloevera powder, Vitamin E oil, Rose water, Kasturi Haldi, Fragrance",
     "description": "Deeply moisturises and hydrates the skin. Provides anti-aging benefits and relief for dry skin.",
     "is_featured": false,
-    "image_path": "assets/images/aloevera.png"
+    "image_path": "asset/images/aloevera.png"
   },
   {
     "id": "soap_beetroot",
@@ -42,7 +42,7 @@
     "ingredients": "Beetroot powder, Rose water, Aloevera gel, Vitamin E oil, Fragrance",
     "description": "Helps maintain a youthful feel and hydrates the skin while controlling acne and brightening the complexion.",
     "is_featured": false,
-    "image_path": "assets/images/beetroot.png"
+    "image_path": "asset/images/beetroot.png"
   },
   {
     "id": "soap_masoordal",
@@ -51,16 +51,16 @@
     "ingredients": "Masoor Dal powder, Aloevera powder, Vitamin E oil, Badam oil, Fragrance",
     "description": "Exfoliates and brightens the skin. Provides skin tightening, moisturisation, and anti-aging benefits.",
     "is_featured": false,
-    "image_path": "assets/images/masoordal.png"
+    "image_path": "asset/images/masoordal.png"
   },
   {
     "id": "soap_manjishta",
-    "name": "Manjishta Soap",
+    "name": "Multanimitti Soap",
     "usecase": "Deep Cleansing & Oil Control",
-    "ingredients": "Manjishta,  Aloevera Gel, Vitamin E oil, Rose water, Fragrance",
+    "ingredients": "Multanimitti,  Aloevera Gel, Vitamin E oil, Rose water, Fragrance",
     "description": "Prevents acne, brightens skin, reduces tan, and helps maintain an even skin tone.",
     "is_featured": false,
-    "image_path": "assets/images/multanimitti.png"
+    "image_path": "asset/images/multanimitti.png"
   },
   {
     "id": "soap_haldi",
@@ -69,7 +69,7 @@
     "ingredients": "Kasturi Haldi powder, Aloevera Gel, Vitamin E oil, Rose water, Fragrance",
     "description": "Anti-bacterial formula that reduces acne and scars while promoting a bright, natural glow. Suitable for sensitive skin.",
     "is_featured": false,
-    "image_path": "assets/images/haldi.png"
+    "image_path": "asset/images/haldi.png"
   },
   {
     "id": "soap_moisturizer",
@@ -78,7 +78,7 @@
     "ingredients": "Milk powder, Rose water, Badam oil, Honey, Fragrance",
     "description": "An anti-aging and anti-acne cleanser that has a brightening effect and promotes a natural glow.",
     "is_featured": false,
-    "image_path": "assets/images/moisturizer_soap.png"
+    "image_path": "asset/images/moisturizer_soap.png"
   },
   {
     "id": "soap_lemon",
@@ -87,7 +87,7 @@
     "ingredients": "Lemon peel powder, Rose water, Vitamin E oil, Coconut oil, Lemon grass fragrance",
     "description": "Skin tightening bar that evens skin tone, reduces acne scars, and provides anti-aging benefits. Recommended for acne-prone skin.",
     "is_featured": false,
-    "image_path": "assets/images/lemon.png"
+    "image_path": "asset/images/lemon.png"
   },
   {
     "id": "soap_charcoal",
@@ -96,7 +96,7 @@
     "ingredients": "Charcoal powder, Aloevera gel powder, Vitamin E oil, Coconut oil, Fragrance",
     "description": "Controls oil and acne while brightening the skin. Provides gentle cleansing and minimizes pores.",
     "is_featured": false,
-    "image_path": "assets/images/charcoal.png"
+    "image_path": "asset/images/charcoal.png"
   },
   {
     "id": "soap_neem",
@@ -105,7 +105,7 @@
     "ingredients": "Neem powder, Kasturi Haldi powder, Vitamin E oil, Rose water, Coconut oil",
     "description": "Highly anti-inflammatory and anti-bacterial. Protects and heals the skin natively.",
     "is_featured": false,
-    "image_path": "assets/images/neem.png"
+    "image_path": "asset/images/neem.png"
   },
   {
     "id": "soap_cool_mint",
@@ -114,6 +114,6 @@
     "ingredients": "Peppermint Essential Oil, Menthol Extract, Coconut Oil, Vitamin E Oil, Aloe Vera Base",
     "description": "A breath of fresh air for your skin. This invigorating marbled bar delivers an instant cooling sensation, perfect for beating the heat and soothing tired skin.",
     "is_featured": false,
-    "image_path": "assets/images/cool_mint.png"
+    "image_path": "asset/images/cool_mint.png"
   }
 ]
