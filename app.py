@@ -4,7 +4,7 @@ import os
 import base64
 
 # --- DIRECTORY SETUP ---
-os.makedirs("assets/images", exist_ok=True)
+os.makedirs("asset/images", exist_ok=True)
 DATA_FILE = "products.json"
 
 # --- PAGE CONFIGURATION ---
@@ -23,7 +23,7 @@ def get_base64_of_bin_file(bin_file):
 # --- CUSTOM CSS (Fonts, Background, Styling) ---
 def local_css():
     # Get base64 string of the logo for the blurred background
-    bg_base64 = get_base64_of_bin_file("assets/logo.png")
+    bg_base64 = get_base64_of_bin_file("asset/logo.png")
 
     # Conditional CSS for the background if the logo exists
     bg_css = f"""
@@ -144,8 +144,8 @@ def render_hero():
         col_logo, col_desc = st.columns([1, 2], gap="large")
 
         with col_logo:
-            if os.path.exists("assets/logo.png"):
-                st.image("assets/logo.png", use_container_width=True)
+            if os.path.exists("asset/logo.png"):
+                st.image("asset/logo.png", use_container_width=True)
             else:
                 st.markdown("<h1 style='text-align: center; font-size: 2.5rem;'>Disha Herbals</h1>",
                             unsafe_allow_html=True)
@@ -239,7 +239,7 @@ def render_admin(products):
         if submitted and p_name:
             image_filename = ""
             if p_image:
-                image_filename = f"assets/images/{p_image.name}"
+                image_filename = f"asset/images/{p_image.name}"
                 with open(image_filename, "wb") as f:
                     f.write(p_image.getbuffer())
 
