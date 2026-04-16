@@ -2,6 +2,7 @@ import streamlit as st
 import json
 import os
 import base64
+import requests
 
 # --- DIRECTORY SETUP ---
 os.makedirs("asset/images", exist_ok=True)
@@ -27,8 +28,8 @@ def local_css():
     # 1. DARK THEME BACKGROUND (Deep Charcoal/Forest)
     bg_css = f"""
         .stApp {{
-            background-color: #161816; /* Deep earthy charcoal */
-            color: #E4E6DF; /* Soft off-white for text */
+            background-color: #161816;
+            color: #E4E6DF;
         }}
         .stApp::before {{
             content: "";
@@ -39,7 +40,7 @@ def local_css():
             background-position: center;
             background-repeat: no-repeat;
             filter: blur(20px);
-            opacity: 0.04; /* Extremely low opacity for dark theme */
+            opacity: 0.04;
             z-index: -1;
         }}
     """ if bg_base64 else ".stApp { background-color: #161816; color: #E4E6DF; }"
@@ -64,15 +65,14 @@ def local_css():
 
         /* 2. SUBTLE DARK GRID LINES & CONTAINERS */
         div[data-testid="stVerticalBlockBorderWrapper"] {{
-            border: 1px solid #2C332D !important; /* Subtle dark green/grey border */
+            border: 1px solid #2C332D !important;
             border-radius: 12px !important;
-            background-color: rgba(26, 30, 27, 0.75) !important; /* Translucent dark container */
+            background-color: rgba(26, 30, 27, 0.75) !important;
             padding: 15px !important;
             box-shadow: 0 8px 16px rgba(0,0,0,0.2) !important;
         }}
 
         /* 3. STRICT IMAGE CROPPING TO FIXED BOX */
-        /* Targets the image container itself to prevent layout shifts */
         div[data-testid="stImage"] {{
             width: 100% !important;
             height: 250px !important; 
@@ -80,7 +80,6 @@ def local_css():
             border-radius: 8px !important;
             margin-bottom: 15px !important;
         }}
-        /* Forces the image to fill the container perfectly without stretching */
         div[data-testid="stImage"] img {{
             width: 100% !important;
             height: 100% !important;
@@ -100,8 +99,8 @@ def local_css():
         /* Floating Action Button (FAB) */
         .stButton > button {{
             border-radius: 30px;
-            background-color: #8DA393; /* Lighter sage green for pop on dark theme */
-            color: #161816 !important; /* Dark text on button */
+            background-color: #8DA393;
+            color: #161816 !important;
             border: none;
             transition: 0.3s;
             padding: 12px 28px;
@@ -149,17 +148,44 @@ def save_data(data):
         json.dump(data, file, indent=4)
 
 
-# --- INQUIRY MODAL ---
+# --- INQUIRY MODAL WITH FORMSPREE ---
 @st.dialog("Send us a message 🌿")
 def inquiry_form():
     st.write("Have a question about our ingredients or want to place an order? Drop us a note below!")
+
     with st.form("email_inquiry"):
         name = st.text_input("Your Name")
         contact = st.text_input("Email or Phone Number")
         message = st.text_area("How can we help you today?")
         submitted = st.form_submit_button("Send Inquiry")
+
         if submitted:
-            st.success(f"Thank you, {name}! Your message has been safely recorded. We will contact you soon.")
+            if not name or not contact or not message:
+                st.warning("Please fill out all fields so we know how to reach you!")
+            else:
+                with st.spinner("Sending your message safely..."):
+
+                    # --- ⚠️ PASTE YOUR FORMSPREE URL HERE ⚠️ ---
+                    url = "https://formspree.io/f/xpqkpdeb"
+                    # -------------------------------------------
+
+                    payload = {
+                        "Name": name,
+                        "Contact Info": contact,
+                        "Message": message
+                    }
+
+                    try:
+                        # Formspree requires headers to know it's accepting JSON
+                        headers = {'Accept': 'application/json'}
+                        response = requests.post(url, json=payload, headers=headers)
+
+                        if response.status_code == 200:
+                            st.success(f"Thank you, {name}! Your message has been safely sent. We will contact you soon.")
+                        else:
+                            st.error("Oops! Something went wrong on the server. Please try again later.")
+                    except Exception as e:
+                        st.error("Could not connect. Please check your internet connection and try again.")
 
 
 # --- UI COMPONENTS ---
@@ -178,7 +204,6 @@ def render_hero():
             st.markdown(
                 "<h1 style='text-align: left; font-size: 4rem; margin-bottom: 0; padding-top: 20px;'>Disha Herbals</h1>",
                 unsafe_allow_html=True)
-            # Adjusted hex colors for the dark theme text
             st.markdown(
                 "<h2 style='text-align: left; color: #8DA393; font-style: italic; margin-top: 0px; font-size: 1.6rem;'>As Gentle as a Mother's Touch</h2>",
                 unsafe_allow_html=True)
